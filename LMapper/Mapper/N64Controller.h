@@ -1,5 +1,8 @@
 #pragma once
 
+#pragma warning( disable : 4250 )
+#pragma warning( disable : 26812 )
+
 #include <Windows.h>
 
 #include <yaml-cpp/yaml.h>
@@ -41,7 +44,7 @@ namespace N64
         Y = 3,
     };
 
-    using IButton = ControllerInterface::Button<Buttons, DWORD>;
+    using IButton = ControllerInterface::Button<Buttons>;
     class Button final : public IModifier
                        , public IButton
     {

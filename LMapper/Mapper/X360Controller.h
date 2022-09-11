@@ -1,4 +1,8 @@
 #pragma once
+
+#pragma warning( disable : 4250 )
+#pragma warning( disable : 26812 )
+
 #include <Windows.h>
 #include <Xinput.h>
 
@@ -47,7 +51,7 @@ namespace X360
         RightTrigger = offsetof(Controller, bRightTrigger),
     };
 
-    using IButton = ControllerInterface::Button<Buttons, USHORT>;
+    using IButton = ControllerInterface::Button<Buttons>;
     class Button final : public IEvent
                        , public IButton
     {

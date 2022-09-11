@@ -200,7 +200,7 @@ namespace Keyboard
         KeyOEMClear = 0xFE,
     };
 
-    using IButton = ControllerInterface::Button<Buttons, USHORT>;
+    using IButton = ControllerInterface::Button<Buttons>;
     class Button final : public IEvent
         , public IButton
     {

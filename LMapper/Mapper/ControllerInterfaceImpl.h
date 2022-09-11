@@ -28,29 +28,31 @@ namespace ControllerInterface
         return false;
     }
 
-    template<typename ButtonT, typename HolderT>
-    Button<ButtonT, HolderT>::Button(ButtonT button) : button_(button) { }
+    template<typename ButtonT>
+    Button<ButtonT>::Button(ButtonT button) : button_(button) { }
 
-    template<typename ButtonT, typename HolderT>
-    YAML::Node Button<ButtonT, HolderT>::Serialize() const
+    template<typename ButtonT>
+    YAML::Node Button<ButtonT>::Serialize() const
     {
         return YAML::Node(button_);
     }
 
-    template<typename ButtonT, typename HolderT>
-    void Button<ButtonT, HolderT>::Apply(HolderT& controller) const
+    template<typename ButtonT>
+    template<typename HolderT>
+    void Button<ButtonT>::Apply(HolderT& controller) const
     {
         controller |= button_;
     }
 
-    template<typename ButtonT, typename HolderT>
-    bool Button<ButtonT, HolderT>::Applied(const HolderT& controller) const
+    template<typename ButtonT>
+    template<typename HolderT>
+    bool Button<ButtonT>::Applied(const HolderT& controller) const
     {
         return controller & button_;
     }
 
-    template<typename ButtonT, typename HolderT>
-    bool Button<ButtonT, HolderT>::Applied(const std::atomic_bool* values) const
+    template<typename ButtonT>
+    bool Button<ButtonT>::Applied(const std::atomic_bool* values) const
     {
         return values[button_];
     }

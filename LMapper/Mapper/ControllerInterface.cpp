@@ -217,6 +217,8 @@ namespace YAML
 
         me.negative = node[0].as<float>();
         me.positive = node[1].as<float>();
+
+        return true;
     }
 
     Node convert<ControllerInterface::BilinearDeadzoner>::encode(const ControllerInterface::BilinearDeadzoner& me)
@@ -231,6 +233,8 @@ namespace YAML
 
         me.size_[0] = node["x"].as<ControllerInterface::AxisDeadzoneSize>();
         me.size_[1] = node["y"].as<ControllerInterface::AxisDeadzoneSize>();
+
+        return true;
     }
 
     Node convert<ControllerInterface::AngleDeadzoner>::encode(const ControllerInterface::AngleDeadzoner& me)

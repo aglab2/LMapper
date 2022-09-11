@@ -14,8 +14,7 @@ namespace YAML
 
 namespace ControllerInterface
 {
-    // HolderT is base of ButtonT enum
-    template<typename ButtonT, typename HolderT>
+    template<typename ButtonT>
     class Button : public virtual Serialization::ISerializable
     {
     public:
@@ -23,8 +22,12 @@ namespace ControllerInterface
 
         virtual YAML::Node Serialize() const override;
 
+        template<typename HolderT>
         void Apply  (HolderT& controller) const;
+
+        template<typename HolderT>
         bool Applied(const HolderT& controller) const;
+
         bool Applied(const std::atomic_bool*) const;
 
     private:
