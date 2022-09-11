@@ -25,6 +25,7 @@ namespace ControllerInterface
 
         void Apply  (HolderT& controller) const;
         bool Applied(const HolderT& controller) const;
+        bool Applied(const std::atomic_bool*) const;
 
     private:
         const ButtonT button_;
@@ -88,7 +89,7 @@ namespace ControllerInterface
     {
     public:
         virtual std::string ToString() = 0;
-        virtual bool Happened(const ControllerT&) const = 0;
+        virtual bool Happened(const ControllerT&, const std::atomic_bool* keyboard) const = 0;
     };
 
     template<typename ControllerT>

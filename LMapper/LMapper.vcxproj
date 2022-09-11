@@ -189,6 +189,7 @@
     <ClInclude Include="Mapper\ControllerInterfaceImpl.h" />
     <ClInclude Include="Mapper\GenericController.h" />
     <ClInclude Include="Mapper\Group.h" />
+    <ClInclude Include="Mapper\Keyboard.h" />
     <ClInclude Include="Mapper\Mapping.h" />
     <ClInclude Include="Mapper\MappingImpl.h" />
     <ClInclude Include="Mapper\N64Controller.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="config.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Mapper\Group.cpp" />
+    <ClCompile Include="Mapper\Keyboard.cpp" />
     <ClCompile Include="Mapper\Switch.cpp" />
     <ClCompile Include="plugin.cpp" />
     <ClCompile Include="Mapper\ControllerInterface.cpp" />

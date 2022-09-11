@@ -5,8 +5,11 @@
 class Config
 {
 public:
+    static constexpr char AllowedEnabledControllerMask = 0xf;
+
     Mapping::Mappers mappers;
     bool savestateHack = false;
+    char enabledControllersMask = 0;
 };
 
 namespace YAML

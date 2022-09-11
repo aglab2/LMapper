@@ -12,7 +12,7 @@ namespace Mapping
         Group(std::vector<IMapperPtr> mappers);
 
         virtual std::string ToString() override;
-        virtual void Map(const X360::Controller& from, N64::Controller& to) override;
+        virtual void Map(const X360::Controller& from, const std::atomic_bool* keyboard, N64::Controller& to) override;
         virtual YAML::Node Serialize() const;
 
         std::vector<IMapperPtr> mappers_;

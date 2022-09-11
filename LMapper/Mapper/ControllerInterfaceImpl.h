@@ -49,6 +49,12 @@ namespace ControllerInterface
         return controller & button_;
     }
 
+    template<typename ButtonT, typename HolderT>
+    bool Button<ButtonT, HolderT>::Applied(const std::atomic_bool* values) const
+    {
+        return values[button_];
+    }
+
     template<typename AxisT, typename OffsetT>
     Axis<AxisT, OffsetT>::Axis(AxisT axis, OffsetT offset) : axis_(axis), offset_(offset) { }
 

@@ -56,7 +56,7 @@ namespace X360
         Button(Buttons);
 
         virtual std::string ToString() override;
-        virtual bool Happened(const Controller&) const;
+        virtual bool Happened(const Controller&, const std::atomic_bool*) const;
     };
 
     template<typename AxisT, typename OffsetT>
@@ -70,7 +70,7 @@ namespace X360
         Axis(IAxis<AxisT, OffsetT> me);
 
         virtual std::string ToString() override;
-        virtual bool Happened(const Controller&) const;
+        virtual bool Happened(const Controller&, const std::atomic_bool*) const;
     };
 
     class Thumb final : public Axis<SHORT, Thumbs>

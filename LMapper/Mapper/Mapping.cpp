@@ -20,9 +20,9 @@ namespace Mapping
             return ss.str();
         }
 
-        void Mapper::Map(const X360::Controller& from, N64::Controller& to)
+        void Mapper::Map(const X360::Controller& from, const std::atomic_bool* keyboard, N64::Controller& to)
         {
-            if (event_->Happened(from))
+            if (event_->Happened(from, keyboard))
                 modifier_->Alter(to);
         }
 
@@ -35,10 +35,10 @@ namespace Mapping
         }
     }
 
-    void Map(const Mappers& mappers, const X360::Controller& from, N64::Controller& to)
+    void Map(const Mappers& mappers, const X360::Controller& from, const std::atomic_bool* keyboard, N64::Controller& to)
     {
         for (auto& mapper : mappers)
-            mapper->Map(from, to);
+            mapper->Map(from, keyboard, to);
     }
 }
 

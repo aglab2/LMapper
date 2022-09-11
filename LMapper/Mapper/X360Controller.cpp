@@ -1,5 +1,6 @@
 #include "X360Controller.h"
 #include "ControllerInterfaceImpl.h"
+#include "Keyboard.h"
 #include "SerializationImpl.h"
 
 namespace YAML
@@ -94,8 +95,26 @@ namespace YAML
         if (node.IsScalar() || node.IsSequence())
         {
             // Button case
-            auto buttons = node.as<X360::Buttons>();
-            ptr = std::make_shared<X360::Button>(buttons);
+            bool isXboxButton = true;
+            if (node.IsScalar())
+            {
+                auto name = node.as<std::string>();
+                if (0 == name.compare(0, 3, "Key"))
+                {
+                    isXboxButton = false;
+                }
+            }
+
+            if (isXboxButton)
+            {
+                auto buttons = node.as<X360::Buttons>();
+                ptr = std::make_shared<X360::Button>(buttons);
+            }
+            else
+            {
+                auto buttons = node.as<Keyboard::Buttons>();
+                ptr = std::make_shared<Keyboard::Button>(buttons);
+            }
             return true;
         }
 
@@ -182,7 +201,7 @@ namespace X360
 {
     Button::Button(Buttons button) : IButton(button) { }
 
-    bool Button::Happened(const Controller& c) const
+    bool Button::Happened(const Controller& c, const std::atomic_bool*) const
     {
         return Applied(c.wButtons);
     }
@@ -196,7 +215,7 @@ namespace X360
     Axis<AxisT, OffsetT>::Axis(IAxis<AxisT, OffsetT> me) : IAxis<AxisT, OffsetT>(me) { }
 
     template<typename AxisT, typename OffsetT>
-    bool Axis<AxisT, OffsetT>::Happened(const Controller& c) const
+    bool Axis<AxisT, OffsetT>::Happened(const Controller& c, const std::atomic_bool*) const
     {
         return IAxis<AxisT, OffsetT>::Applied(&c);
     }

@@ -24,9 +24,15 @@ void Plugin::ReadConfig()
         auto node = YAML::LoadFile(cfgPath.u8string());
         cfg = node.as<Config>();
     }
+    catch (std::exception& ex)
+    {
+        auto errorMsg = "Failed to read cfg from '" + cfgPath.string() + "': " + ex.what();
+        MessageBox(NULL, errorMsg.c_str(), "Mapper", MB_OK);
+        return;
+    }
     catch (...)
     {
-        auto errorMsg = "Failed to read cfg from '" + cfgPath.string();
+        auto errorMsg = "Failed to read cfg from '" + cfgPath.string() + "'";
         MessageBox(NULL, errorMsg.c_str(), "Mapper", MB_OK);
         return;
     }
@@ -37,18 +43,11 @@ void Plugin::Get(int controller, BUTTONS* buttons)
     *buttons = {};
     XINPUT_STATE state;
     auto err = XInputGetState(controller, &state);
-
-    if (ERROR_DEVICE_NOT_CONNECTED == err)
-    {
-        //MessageBox(NULL, L"Controller is not connected", L"Mapper", MB_OK);
-        return;
-    }
     if (ERROR_SUCCESS != err)
     {
-        //MessageBox(NULL, L"Error occured reading controller input", L"Mapper", MB_OK);
-        return;
+        state = {};
     }
 
     auto& x360 = state.Gamepad;
-    Mapping::Map(cfg.mappers, x360, *buttons);
+    Mapping::Map(cfg.mappers, x360, activeKeys, *buttons);
 }

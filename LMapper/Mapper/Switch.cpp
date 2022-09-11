@@ -14,9 +14,9 @@ namespace Mapping
         return {};
     }
 
-    void Switcher::Map(const X360::Controller& from, N64::Controller& to)
+    void Switcher::Map(const X360::Controller& from, const std::atomic_bool* keyboard, N64::Controller& to)
     {
-        auto on = event_->Happened(from);
+        auto on = event_->Happened(from, keyboard);
         switch (condition_)
         {
         case Mapping::SwitchCondition::PressNext:
@@ -36,7 +36,7 @@ namespace Mapping
         }
 
         prevOn_ = on;
-        mappers_[curMapper_ % mappers_.size()]->Map(from, to);
+        mappers_[curMapper_ % mappers_.size()]->Map(from, keyboard, to);
     }
 
     YAML::Node Switcher::Serialize() const

@@ -129,7 +129,8 @@ EXPORT void CALL GetDllInfo(PLUGIN_INFO* PluginInfo)
 {
     PluginInfo->Version = 0x0100;
     PluginInfo->Type = PLUGIN_TYPE_CONTROLLER;
-    strncpy_s(PluginInfo->Name, "LINK's Mapper 0.1", 14);
+    static const char PluginName[] = "LINK's Mapper 1.1";
+    strncpy_s(PluginInfo->Name, PluginName, sizeof(PluginName));
 }
 
 /******************************************************************
@@ -162,12 +163,12 @@ EXPORT void CALL InitiateControllers(HWND hMainWindow, CONTROL Controls[4])
     XINPUT_STATE state;
     for (int i = 0; i <= 3; i++)
     {
-        auto err = XInputGetState(i, &state);
-
-        std::wstringstream ss;
-        ss << "Controller " << i << " was detected";
-
-        auto connected = ERROR_SUCCESS == err;
+        bool connected = gPlugin.enabledControllersMask() & (1 << i);
+        if (!connected)
+        {
+            auto err = XInputGetState(i, &state);
+            auto connected = ERROR_SUCCESS == err;
+        }
 
         Controls[i].Plugin  = connected;
         Controls[i].Present = connected;
@@ -211,7 +212,7 @@ EXPORT void CALL RomClosed(void)
 *******************************************************************/
 EXPORT void CALL RomOpen(void)
 {
-    return;
+    gPlugin.clearKeys();
 }
 
 /******************************************************************
@@ -227,6 +228,8 @@ EXPORT void CALL WM_KeyDown(WPARAM wParam, LPARAM lParam)
     {
         Savestate::handleKey(wParam, lParam);
     }
+
+    gPlugin.setActiveKey(wParam);
 }
 
 /******************************************************************
@@ -238,5 +241,5 @@ EXPORT void CALL WM_KeyDown(WPARAM wParam, LPARAM lParam)
 *******************************************************************/
 EXPORT void CALL WM_KeyUp(WPARAM wParam, LPARAM lParam) 
 {
-    return;
+    gPlugin.setInactiveKey(wParam);
 }

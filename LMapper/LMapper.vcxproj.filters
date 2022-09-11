@@ -72,6 +72,9 @@
     <ClInclude Include="savestate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Mapper\Keyboard.h">
+      <Filter>Header Files\Mapper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -109,6 +112,9 @@
     </ClCompile>
     <ClCompile Include="savestate.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mapper\Keyboard.cpp">
+      <Filter>Source Files\Mapper</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

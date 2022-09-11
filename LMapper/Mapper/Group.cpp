@@ -12,11 +12,11 @@ namespace Mapping
         return {};
     }
 
-    void Group::Map(const X360::Controller& from, N64::Controller& to)
+    void Group::Map(const X360::Controller& from, const std::atomic_bool* keyboard, N64::Controller& to)
     {
         for (auto& ev : mappers_)
         {
-            ev->Map(from, to);
+            ev->Map(from, keyboard, to);
         }
     }
 

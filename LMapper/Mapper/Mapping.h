@@ -17,7 +17,7 @@ namespace Mapping
     {
     public:
         virtual std::string ToString() = 0;
-        virtual void Map(const X360::Controller& from, N64::Controller& to) = 0;
+        virtual void Map(const X360::Controller& from, const std::atomic_bool* keyboard, N64::Controller& to) = 0;
     };
     using IMapperPtr = std::shared_ptr<IMapper>;
 
@@ -33,9 +33,9 @@ namespace Mapping
 
             LinearMapper(FromConverter, ToConverter, Deadzoner);
 
-            virtual std::string ToString();
-            virtual void Map(const X360::Controller& from, N64::Controller& to);
-            virtual YAML::Node Serialize() const;
+            virtual std::string ToString() override;
+            virtual void Map(const X360::Controller& from, const std::atomic_bool* keyboard, N64::Controller& to) override;
+            virtual YAML::Node Serialize() const override;
 
         private:
             static const std::string name_;
@@ -58,9 +58,9 @@ namespace Mapping
 
             BilinearMapper(FromConverter fX, FromConverter fY, ToConverter tX, ToConverter tY, Stretcher, Deadzoner, BilinearDeadzoner, AngleLimiter);
 
-            virtual std::string ToString();
-            virtual void Map(const X360::Controller& from, N64::Controller& to);
-            virtual YAML::Node Serialize() const;
+            virtual std::string ToString() override;
+            virtual void Map(const X360::Controller& from, const std::atomic_bool* keyboard, N64::Controller& to) override;
+            virtual YAML::Node Serialize() const override;
 
         private:
             static const std::string name_;
@@ -97,9 +97,9 @@ namespace Mapping
         public:
             Mapper(X360::IEventPtr from, N64::IModifierPtr to);
 
-            virtual std::string ToString();
-            virtual void Map(const X360::Controller& from, N64::Controller& to);
-            virtual YAML::Node Serialize() const;
+            virtual std::string ToString() override;
+            virtual void Map(const X360::Controller& from, const std::atomic_bool* keyboard, N64::Controller& to) override;
+            virtual YAML::Node Serialize() const override;
 
         private:
             X360::IEventPtr event_;
@@ -110,7 +110,7 @@ namespace Mapping
     }
 
     using Mappers = std::vector<IMapperPtr>;
-    void Map(const Mappers&, const X360::Controller& from, N64::Controller& to);
+    void Map(const Mappers&, const X360::Controller& from, const std::atomic_bool* keyboard, N64::Controller& to);
 }
 
 namespace YAML
