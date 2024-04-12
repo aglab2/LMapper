@@ -4,5 +4,5 @@
 
 namespace Win
 {
-    std::string ExecutablePath();
+    std::string ConfigPath();
 }

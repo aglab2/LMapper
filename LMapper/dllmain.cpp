@@ -2,6 +2,7 @@
 #include "Controller #1.1.h"
 #include "plugin.h"
 #include "savestate.h"
+#include "Win.h"
 
 static Plugin gPlugin;
 
@@ -91,7 +92,7 @@ EXPORT void CALL DllConfig(HWND hParent)
     ShExecInfo.hwnd = NULL;
     ShExecInfo.lpVerb = "runas";
     ShExecInfo.lpFile = "notepad.exe";
-    ShExecInfo.lpParameters = gPlugin.ConfigPath().c_str();
+    ShExecInfo.lpParameters = Win::ConfigPath().c_str();
     ShExecInfo.lpDirectory = NULL;
     ShExecInfo.nShow = SW_SHOW;
     ShExecInfo.hInstApp = NULL;
@@ -129,7 +130,7 @@ EXPORT void CALL GetDllInfo(PLUGIN_INFO* PluginInfo)
 {
     PluginInfo->Version = 0x0100;
     PluginInfo->Type = PLUGIN_TYPE_CONTROLLER;
-    static const char PluginName[] = "LINK's Mapper 1.1.1";
+    static const char PluginName[] = "LINK's Mapper 1.1.2";
     strncpy_s(PluginInfo->Name, PluginName, sizeof(PluginName));
 }
 

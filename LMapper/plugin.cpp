@@ -9,30 +9,28 @@ void Plugin::ReadConfig()
 {
     cfg = {};
 
-    std::filesystem::path path(Win::ExecutablePath());
-    auto cfgPath = path.remove_filename() / "Config" / "map.yaml";
-    configPath = cfgPath.string();
+    auto cfgPath = Win::ConfigPath();
     if (!std::filesystem::exists(cfgPath))
     {
-        auto errorMsg = "Path '" + cfgPath.string() + "' does not exist!";
+        auto errorMsg = "Path '" + cfgPath + "' does not exist!";
         MessageBox(NULL, errorMsg.c_str(), "Mapper", MB_OK);
         return;
     }
 
     try
     {
-        auto node = YAML::LoadFile(cfgPath.u8string());
+        auto node = YAML::LoadFile(cfgPath);
         cfg = node.as<Config>();
     }
     catch (std::exception& ex)
     {
-        auto errorMsg = "Failed to read cfg from '" + cfgPath.string() + "': " + ex.what();
+        auto errorMsg = "Failed to read cfg from '" + cfgPath + "': " + ex.what();
         MessageBox(NULL, errorMsg.c_str(), "Mapper", MB_OK);
         return;
     }
     catch (...)
     {
-        auto errorMsg = "Failed to read cfg from '" + cfgPath.string() + "'";
+        auto errorMsg = "Failed to read cfg from '" + cfgPath + "'";
         MessageBox(NULL, errorMsg.c_str(), "Mapper", MB_OK);
         return;
     }
