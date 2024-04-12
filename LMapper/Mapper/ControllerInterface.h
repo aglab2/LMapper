@@ -1,6 +1,7 @@
 #pragma once
 
 #include "utils.h"
+#include "InputFactory.h"
 #include "Serialization.h"
 
 #include <map>
@@ -92,7 +93,7 @@ namespace ControllerInterface
     {
     public:
         virtual std::string ToString() = 0;
-        virtual bool Happened(const ControllerT&, const std::atomic_bool* keyboard) const = 0;
+        virtual bool Happened(InputFactory&) const = 0;
     };
 
     template<typename ControllerT>

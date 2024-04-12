@@ -20,7 +20,7 @@ namespace Mapping
         }
 
         template<typename FromOffsetT, typename FromStickT, typename ToOffsetT, typename ToStickT>
-        void LinearMapper<FromOffsetT, FromStickT, ToOffsetT, ToStickT>::Map(const X360::Controller& from, const std::atomic_bool*, N64::Controller& to)
+        void LinearMapper<FromOffsetT, FromStickT, ToOffsetT, ToStickT>::Map(InputFactory& from, N64::Controller& to)
         {
             auto fromValPtr = fromConverter_.Get(&from);
             auto toValPtr = toConverter_.Get(&to);

@@ -14,7 +14,7 @@ namespace Mapping
         return {};
     }
 
-    void Switcher::Map(const X360::Controller& from, const std::atomic_bool* keyboard, N64::Controller& to)
+    void Switcher::Map(InputFactory& from, const std::atomic_bool* keyboard, N64::Controller& to)
     {
         auto on = event_->Happened(from, keyboard);
         switch (condition_)

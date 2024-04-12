@@ -75,6 +75,9 @@
     <ClInclude Include="Mapper\Keyboard.h">
       <Filter>Header Files\Mapper</Filter>
     </ClInclude>
+    <ClInclude Include="Mapper\InputFactory.h">
+      <Filter>Header Files\Mapper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -114,6 +117,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mapper\Keyboard.cpp">
+      <Filter>Source Files\Mapper</Filter>
+    </ClCompile>
+    <ClCompile Include="Mapper\InputFactory.cpp">
       <Filter>Source Files\Mapper</Filter>
     </ClCompile>
   </ItemGroup>

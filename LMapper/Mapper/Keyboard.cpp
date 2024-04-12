@@ -206,9 +206,9 @@ namespace Keyboard
 {
     Button::Button(Buttons button) : IButton(button) { }
 
-    bool Button::Happened(const Controller& c, const std::atomic_bool* keyboard) const
+    bool Button::Happened(InputFactory& factory) const
     {
-        return Applied(keyboard);
+        return Applied(factory.keyboard());
     }
 
     std::string Button::ToString()

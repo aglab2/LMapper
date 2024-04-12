@@ -209,7 +209,7 @@ namespace Keyboard
         Button(Buttons);
 
         virtual std::string ToString() override;
-        virtual bool Happened(const Controller&, const std::atomic_bool*) const;
+        virtual bool Happened(InputFactory&) const;
     };
 }
 

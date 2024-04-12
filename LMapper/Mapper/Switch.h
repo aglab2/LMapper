@@ -19,7 +19,7 @@ namespace Mapping
         Switcher(SwitchCondition cond, X360::IEventPtr event_, std::vector<IMapperPtr> mappers);
 
         virtual std::string ToString() override;
-        virtual void Map(const X360::Controller& from, const std::atomic_bool* keyboard, N64::Controller& to) override;
+        virtual void Map(InputFactory& from, const std::atomic_bool* keyboard, N64::Controller& to) override;
         virtual YAML::Node Serialize() const;
 
         SwitchCondition condition_;

@@ -12,11 +12,11 @@ namespace Mapping
         return {};
     }
 
-    void Group::Map(const X360::Controller& from, const std::atomic_bool* keyboard, N64::Controller& to)
+    void Group::Map(InputFactory& factory, N64::Controller& to)
     {
         for (auto& ev : mappers_)
         {
-            ev->Map(from, keyboard, to);
+            ev->Map(factory, to);
         }
     }
 
